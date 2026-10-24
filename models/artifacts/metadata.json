@@ -1,0 +1,71 @@
+{
+  "project": "Football Match Outcome Prediction Using Machine Learning",
+  "artifact": "football_prediction_bundle.joblib",
+  "selected_model": "poisson_1x2",
+  "best_classifier": "logistic_regression",
+  "base_strategy": "single:logistic_regression",
+  "hybrid_selected": false,
+  "poisson_selected": true,
+  "hybrid_weight_base": 0.0,
+  "hybrid_weight_poisson": 1.0,
+  "classes_order": [
+    "A",
+    "D",
+    "H"
+  ],
+  "features": [
+    "Home_Form_Pts_5",
+    "Away_Form_Pts_5",
+    "Home_Goals_For_5",
+    "Home_Goals_Against_5",
+    "Away_Goals_For_5",
+    "Away_Goals_Against_5",
+    "Home_Matches_Played",
+    "Away_Matches_Played",
+    "Home_Rest_Days",
+    "Away_Rest_Days",
+    "Home_Elo",
+    "Away_Elo",
+    "Elo_Diff",
+    "Attack_Advantage_Home",
+    "Attack_Advantage_Away"
+  ],
+  "split_dates": {
+    "train_start": "2000-08-19",
+    "train_end": "2018-11-24",
+    "validation_start": "2018-11-25",
+    "validation_end": "2022-10-16",
+    "test_start": "2022-10-18",
+    "test_end": "2026-10-19"
+  },
+  "validation_metrics": {
+    "base_log_loss": 0.9811400570061366,
+    "hybrid_log_loss": 0.973934091958297
+  },
+  "test_selected_metrics": {
+    "accuracy": 0.5271265907568654,
+    "macro_f1": 0.38970264599007115,
+    "balanced_accuracy": 0.44947401095349865,
+    "log_loss": 0.9834140936395399,
+    "brier_score": 0.5864412212400897
+  },
+  "goal_metrics_test": {
+    "test_matches": 1493,
+    "home_goals_mae": 0.9725409616773713,
+    "away_goals_mae": 0.8921370383303913,
+    "combined_goals_mae": 0.9323390000038813,
+    "home_goals_rmse": 1.2233117927815207,
+    "away_goals_rmse": 1.1491840987529849,
+    "home_goals_poisson_deviance": 1.1074049875773384,
+    "away_goals_poisson_deviance": 1.1288021369889778
+  },
+  "environment": {
+    "python": "3.13.7",
+    "platform": "Windows-10-10.0.19045-SP0",
+    "numpy": "2.4.2",
+    "pandas": "3.0.5",
+    "scikit_learn": "1.9.0",
+    "joblib": "1.6.0"
+  },
+  "disclaimer": "Kết quả chỉ mang tính tham khảo; không bảo đảm dự đoán đúng trận đấu tương lai."
+}

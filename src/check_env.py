@@ -1,46 +1,32 @@
-import sys
+"""Check the Python environment before running the project."""
+from __future__ import annotations
+
 import platform
+import sys
 from importlib.metadata import PackageNotFoundError, version
 
-# Các thư viện cần dùng
-PACKAGES = [
-    "numpy",
-    "pandas",
-    "matplotlib",
-    "scikit-learn",
-    "streamlit",
-    "joblib",
-    "pytest",
-]
+PACKAGES = ["numpy", "pandas", "scikit-learn", "scipy", "matplotlib", "joblib", "streamlit", "pytest"]
 
-def main():
-    print("=" * 55)
-    print("FOOTBALL OUTCOME PREDICTION - ENVIRONMENT CHECK")
-    print("=" * 55)
 
-    print("Python version :", sys.version.split()[0])
-    print("Python path    :", sys.executable)
-    print("Operating system:", platform.platform())
-
-    print("\nInstalled packages:")
-
+def main() -> None:
+    print("=" * 60)
+    print("FOOTBALL MATCH PREDICTION - ENVIRONMENT CHECK")
+    print("=" * 60)
+    print("Python:", sys.version.split()[0])
+    print("Executable:", sys.executable)
+    print("Platform:", platform.platform())
     missing = []
-
-    # Kiểm tra từng môi trường đã cài chưa
     for package in PACKAGES:
         try:
-            package_version = version(package)
-            print(f"[OK] {package}: {package_version}")
+            print(f"[OK] {package}: {version(package)}")
         except PackageNotFoundError:
             print(f"[MISSING] {package}")
             missing.append(package)
-
     if missing:
-        print("\nThieu thu vien. Hay chay:")
-        print("python -m pip install -r requirements.txt")
-        return
-    
-    print("\nPASS: Moi truong co ban hoat dong.")
+        print("\nCài thư viện bằng: python -m pip install -r requirements.txt")
+        raise SystemExit(1)
+    print("\nPASS: các thư viện cần thiết đã được cài.")
+
 
 if __name__ == "__main__":
     main()

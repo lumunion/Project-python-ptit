@@ -1,0 +1,10 @@
+{
+  "test_matches": 1493,
+  "home_goals_mae": 0.9725409616773713,
+  "away_goals_mae": 0.8921370383303913,
+  "combined_goals_mae": 0.9323390000038813,
+  "home_goals_rmse": 1.2233117927815207,
+  "away_goals_rmse": 1.1491840987529849,
+  "home_goals_poisson_deviance": 1.1074049875773384,
+  "away_goals_poisson_deviance": 1.1288021369889778
+}
