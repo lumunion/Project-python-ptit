@@ -7,7 +7,9 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 import os
+import sys
 import subprocess
+import streamlit as st
 
 from src.features.build_features import build_fixture_features, load_matches
 from src.models.inference import load_bundle, predict_fixture
@@ -28,10 +30,10 @@ st.set_page_config(
 def get_resources():
     model_path = "models/artifacts/football_prediction_bundle.joblib"
     
-    # Nếu chưa có file model trên server, tự động chạy script huấn luyện
     if not os.path.exists(model_path):
         st.info("Đang tự động khởi tạo và huấn luyện mô hình trên server, vui lòng đợi trong giây lát...")
-        subprocess.run(["python", "run_project.py"], check=True)
+        # Sử dụng sys.executable để trỏ chính xác vào Python môi trường hiện tại
+        subprocess.run([sys.executable, "run_project.py"], check=True)
         
     return load_bundle(), load_matches()
 
