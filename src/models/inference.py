@@ -1,4 +1,21 @@
-c/ "models" / "artifacts" / "football_prediction_bundle.joblib"
+"""Logic dự đoán được chia sẻ, sử dụng bởi bản demo Streamlit"""
+from __future__ import annotations
+
+from pathlib import Path
+from typing import Any
+
+import joblib
+import numpy as np
+import pandas as pd
+
+from src.models.train_models import (
+    align_probabilities,
+    poisson_outcome_probabilities,
+    predict_goal_rates,
+)
+
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+BUNDLE_PATH = PROJECT_ROOT / "models" / "artifacts" / "football_prediction_bundle.joblib"
 
 
 def load_bundle(path: Path = BUNDLE_PATH) -> dict[str, Any]:
