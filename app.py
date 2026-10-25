@@ -38,7 +38,7 @@ def get_resources():
     return load_bundle(), load_matches()
 
 
-st.title("⚽ Football Match Outcome Prediction SuperProMaxVIP")
+st.title("⚽ Football Match Outcome Prediction SuperProMaxVIP Tiến Anh đẹp trai hơn Hòa")
 st.caption("Dự đoán kết quả bóng đá bằng Machine Learning · Dữ liệu lịch sử Premier League")
 
 try:
