@@ -47,7 +47,6 @@ football-match-prediction-complete/
 │   ├── data/
 │   │   ├── prepare_data.py
 │   │   ├── autodowload.py
-│   │   ├── Gopfile.py
 │   │   └── checkfilecsv.py
 │   │
 │   ├── features/
@@ -56,9 +55,6 @@ football-match-prediction-complete/
 │   ├── models/
 │   │   ├── train_models.py
 │   │   └── inference.py
-│   │
-│   ├── evaluation/
-│   │   └── baseline.py
 │   │
 │   ├── pipeline/
 │   │   └── run_all.py

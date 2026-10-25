@@ -47,7 +47,7 @@ FIGURE_DIR = REPORT_DIR / "figures"
 CLASS_ORDER = ["A", "D", "H"]  # fixed order for every probability vector
 RANDOM_STATE = 42
 
-
+""" Đọc dữ liệu đặc trưng từ file CSV """
 def load_feature_data(path: Path = FEATURES_PATH) -> pd.DataFrame:
     if not path.exists():
         raise FileNotFoundError(f"Không tìm thấy {path}. Hãy chạy build_features trước.")
@@ -63,9 +63,8 @@ def load_feature_data(path: Path = FEATURES_PATH) -> pd.DataFrame:
         raise ValueError(f"Chỉ có {len(df)} trận hợp lệ; chưa đủ để thiết kế thực nghiệm ổn định.")
     return df
 
-
+"""Chia dữ liệu theo trình tự thời gian thành 3 tập: Train (70%), Validation (15%), Test (15%)"""
 def temporal_split(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, dict[str, str]]:
-    """70/15/15 row targets, with cut points moved to whole calendar dates."""
     counts = df.groupby("Date", sort=True).size()
     cumulative = counts.cumsum()
     n = len(df)
@@ -90,7 +89,7 @@ def temporal_split(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.Dat
     }
     return train, validation, test, dates
 
-
+"""sử dụng Logistic Regression, Decision Tree, Random Forest, và HistGradientBoostingClassifier"""
 def create_classifiers() -> dict[str, Any]:
     return {
         "logistic_regression": Pipeline(
@@ -128,7 +127,7 @@ def create_classifiers() -> dict[str, Any]:
         ),
     }
 
-
+"""Đảm bảo ma trận xác suất đầu ra của mô hình luôn tuân theo đúng thứ tự cột ["A", "D", "H"]   """
 def align_probabilities(model: Any, X: pd.DataFrame) -> np.ndarray:
     raw = model.predict_proba(X)
     result = np.zeros((len(X), len(CLASS_ORDER)), dtype=float)
@@ -148,7 +147,7 @@ def multiclass_brier(y_true: np.ndarray, probabilities: np.ndarray) -> float:
     one_hot = np.column_stack([(y_true == label).astype(float) for label in CLASS_ORDER])
     return float(np.mean(np.sum((probabilities - one_hot) ** 2, axis=1)))
 
-
+""" sử dụng Accuracy, Macro F1, Balanced Accuracy, Log loss, và Brier score để đánh """
 def classification_metrics(y_true: np.ndarray, probabilities: np.ndarray) -> dict[str, float]:
     predictions = probabilities_to_labels(probabilities)
     return {
@@ -241,7 +240,7 @@ def _optimize_hybrid_weight(base_probs: np.ndarray, poisson_probs: np.ndarray, y
             best_weight = float(weight)
     return best_weight, best_loss, float(log_loss(y_val, base_probs, labels=CLASS_ORDER))
 
-
+"""Vẽ và lưu biểu đồ Log Loss của tập test và Confusion Matrix (ma trận nhầm lẫn) dưới dạng ảnh PNG"""
 def _save_plots(metrics_df: pd.DataFrame, y_test: np.ndarray, selected_probabilities: np.ndarray, selected_name: str) -> None:
     FIGURE_DIR.mkdir(parents=True, exist_ok=True)
     test_metrics = metrics_df[metrics_df["split"] == "test"].sort_values("log_loss")
@@ -272,9 +271,7 @@ def _save_plots(metrics_df: pd.DataFrame, y_test: np.ndarray, selected_probabili
 
 
 def train_and_evaluate() -> dict[str, Any]:
-    print("=" * 72)
-    print("BƯỚC 3: TRAIN / VALIDATION / TEST, SO SÁNH MODEL VÀ POISSON")
-    print("=" * 72)
+    print("TRAIN / VALIDATION / TEST, SO SÁNH MODEL VÀ POISSON")
     df = load_feature_data()
     train, validation, test, split_dates = temporal_split(df)
     print(f"Train      : {len(train):,} ({split_dates['train_start']} -> {split_dates['train_end']})")

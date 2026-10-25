@@ -1,7 +1,7 @@
-"""Leakage-aware pre-match feature engineering for football matches.
+"""Kỹ thuật đặc trưng (feature engineering) cho các trận đấu bóng đá có cân nhắc đến vấn đề rò rỉ thông tin (leakage).
 
-All matches on the same calendar day are features-scored before any result
-from that date updates team histories, even when kickoff times are available.
+Tất cả các trận đấu diễn ra trong cùng một ngày đều được chấm điểm dựa trên các đặc điểm trước khi có kết quả.
+Kể từ ngày đó, hệ thống sẽ cập nhật lịch sử các đội, ngay cả khi đã có thông tin về thời gian bắt đầu trận đấu.
 """
 from __future__ import annotations
 
@@ -34,12 +34,12 @@ FEATURE_COLUMNS = [
     "Attack_Advantage_Away",
 ]
 
-PRIOR_POINTS = 1.5
-PRIOR_GOALS = 1.35
-PRIOR_STRENGTH = 2.0
-INITIAL_ELO = 1500.0
-HOME_ADVANTAGE_ELO = 60.0
-ELO_K = 20.0
+PRIOR_POINTS = 1.5 # thắng được 3 điểm, hòa 1 điểm, thua 0 điểm
+PRIOR_GOALS = 1.35 # theo thống kê hằng năm trung bình mỗi trận đấu có khoảng 2.7 bàn
+PRIOR_STRENGTH = 2.0 # Con số 2.0 đóng vai trò như 2 trận đấu "ảo"
+INITIAL_ELO = 1500.0 # quy ước toán học tiêu chuẩn của hệ thống Elo toàn cầu
+HOME_ADVANTAGE_ELO = 60.0 # Trong bóng đá, đá sân nhà mang lại lợi thế cực kỳ lớn (khán giả, sân bãi, không phải di chuyển).
+ELO_K = 20.0 # K-factor là "tốc độ học" (learning rate) của mô hình.
 
 
 def _empty_state() -> dict[str, Any]:
@@ -187,9 +187,6 @@ def build_fixture_features(
 
 
 def build_features() -> pd.DataFrame:
-    print("=" * 68)
-    print("BƯỚC 2: TẠO ĐẶC TRƯNG TRƯỚC TRẬN, CÓ KIỂM SOÁT LEAKAGE")
-    print("=" * 68)
     matches = load_matches()
     result = build_features_dataframe(matches)
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
