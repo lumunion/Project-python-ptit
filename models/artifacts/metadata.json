@@ -1,13 +1,13 @@
 {
   "project": "Football Match Outcome Prediction Using Machine Learning",
   "artifact": "football_prediction_bundle.joblib",
-  "selected_model": "poisson_1x2",
+  "selected_model": "weighted_hybrid",
   "best_classifier": "logistic_regression",
-  "base_strategy": "single:logistic_regression",
-  "hybrid_selected": false,
-  "poisson_selected": true,
-  "hybrid_weight_base": 0.0,
-  "hybrid_weight_poisson": 1.0,
+  "base_strategy": "soft_voting_equal",
+  "hybrid_selected": true,
+  "poisson_selected": false,
+  "hybrid_weight_base": 0.15000000000000002,
+  "hybrid_weight_poisson": 0.85,
   "classes_order": [
     "A",
     "D",
@@ -32,39 +32,39 @@
   ],
   "split_dates": {
     "train_start": "2000-08-19",
-    "train_end": "2018-11-24",
-    "validation_start": "2018-11-25",
-    "validation_end": "2022-10-16",
-    "test_start": "2022-10-18",
-    "test_end": "2026-10-19"
+    "train_end": "2018-12-01",
+    "validation_start": "2018-12-02",
+    "validation_end": "2022-10-20",
+    "test_start": "2022-10-22",
+    "test_end": "2026-10-25"
   },
   "validation_metrics": {
-    "base_log_loss": 0.9811400570061366,
-    "hybrid_log_loss": 0.973934091958297
+    "base_log_loss": 0.9804675613874018,
+    "hybrid_log_loss": 0.9735947285941071
   },
   "test_selected_metrics": {
-    "accuracy": 0.5271265907568654,
-    "macro_f1": 0.38970264599007115,
-    "balanced_accuracy": 0.44947401095349865,
-    "log_loss": 0.9834140936395399,
-    "brier_score": 0.5864412212400897
+    "accuracy": 0.5274431057563588,
+    "macro_f1": 0.3902813964596172,
+    "balanced_accuracy": 0.4504355928551947,
+    "log_loss": 0.9842148654210378,
+    "brier_score": 0.5869914779902057
   },
   "goal_metrics_test": {
-    "test_matches": 1493,
-    "home_goals_mae": 0.9725409616773713,
-    "away_goals_mae": 0.8921370383303913,
-    "combined_goals_mae": 0.9323390000038813,
-    "home_goals_rmse": 1.2233117927815207,
-    "away_goals_rmse": 1.1491840987529849,
-    "home_goals_poisson_deviance": 1.1074049875773384,
-    "away_goals_poisson_deviance": 1.1288021369889778
+    "test_matches": 1494,
+    "home_goals_mae": 0.971754555599998,
+    "away_goals_mae": 0.8915373313354337,
+    "combined_goals_mae": 0.9316459434677158,
+    "home_goals_rmse": 1.2229590821935594,
+    "away_goals_rmse": 1.1487588114200087,
+    "home_goals_poisson_deviance": 1.10912824265915,
+    "away_goals_poisson_deviance": 1.1244235484270388
   },
   "environment": {
     "python": "3.13.7",
     "platform": "Windows-10-10.0.19045-SP0",
-    "numpy": "2.4.2",
-    "pandas": "3.0.5",
-    "scikit_learn": "1.9.0",
+    "numpy": "2.5.4",
+    "pandas": "3.1.0",
+    "scikit_learn": "1.9.1",
     "joblib": "1.6.0"
   },
   "disclaimer": "Kết quả chỉ mang tính tham khảo; không bảo đảm dự đoán đúng trận đấu tương lai."

@@ -1,10 +1,10 @@
 {
-  "test_matches": 1493,
-  "home_goals_mae": 0.9725409616773713,
-  "away_goals_mae": 0.8921370383303913,
-  "combined_goals_mae": 0.9323390000038813,
-  "home_goals_rmse": 1.2233117927815207,
-  "away_goals_rmse": 1.1491840987529849,
-  "home_goals_poisson_deviance": 1.1074049875773384,
-  "away_goals_poisson_deviance": 1.1288021369889778
+  "test_matches": 1494,
+  "home_goals_mae": 0.971754555599998,
+  "away_goals_mae": 0.8915373313354337,
+  "combined_goals_mae": 0.9316459434677158,
+  "home_goals_rmse": 1.2229590821935594,
+  "away_goals_rmse": 1.1487588114200087,
+  "home_goals_poisson_deviance": 1.10912824265915,
+  "away_goals_poisson_deviance": 1.1244235484270388
 }

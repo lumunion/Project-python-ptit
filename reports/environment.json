@@ -1,8 +1,8 @@
 {
   "python": "3.13.7",
   "platform": "Windows-10-10.0.19045-SP0",
-  "numpy": "2.4.2",
-  "pandas": "3.0.5",
-  "scikit_learn": "1.9.0",
+  "numpy": "2.5.4",
+  "pandas": "3.1.0",
+  "scikit_learn": "1.9.1",
   "joblib": "1.6.0"
 }

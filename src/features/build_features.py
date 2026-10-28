@@ -1,7 +1,9 @@
-"""Kỹ thuật đặc trưng (feature engineering) cho các trận đấu bóng đá có cân nhắc đến vấn đề rò rỉ thông tin (leakage).
-
-Tất cả các trận đấu diễn ra trong cùng một ngày đều được chấm điểm dựa trên các đặc điểm trước khi có kết quả.
-Kể từ ngày đó, hệ thống sẽ cập nhật lịch sử các đội, ngay cả khi đã có thông tin về thời gian bắt đầu trận đấu.
+""" 1. Đọc dữ liệu lịch sử các trận bóng đá đã được chuẩn hóa
+    2. Theo dõi lịch sử thi đấu của từng đội bóng
+    3. Tính toán 15 features cho mỗi trận đấu
+    4. Đảm bảo các features chỉ được sử dụng thông tin có trước trận đấu, tránh Data lackage
+    5. Cập nhập phong độ, bàn thắng và Elo của các đội sau khi kết quả trận đấu đã được xác định
+    6. Xuất dữ liệu hoàn chỉnh để đưa vào các thuật toán Machine Learning
 """
 from __future__ import annotations
 
@@ -16,6 +18,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 INPUT_PATH = PROJECT_ROOT / "Data" / "processed" / "premier_league_all_seasons.csv"
 OUTPUT_PATH = PROJECT_ROOT / "Data" / "processed" / "features_data.csv"
 
+""" 5 nhóm: Phong độ, Khả năng ghi bàn/phòng ngự, số trận đã chơi/ngày nghỉ, Elo, khả năng tấn công/phòng ngự"""
 FEATURE_COLUMNS = [
     "Home_Form_Pts_5",
     "Away_Form_Pts_5",
@@ -41,16 +44,16 @@ INITIAL_ELO = 1500.0 # quy ước toán học tiêu chuẩn của hệ thống E
 HOME_ADVANTAGE_ELO = 60.0 # Trong bóng đá, đá sân nhà mang lại lợi thế cực kỳ lớn (khán giả, sân bãi, không phải di chuyển).
 ELO_K = 20.0 # K-factor là "tốc độ học" (learning rate) của mô hình.
 
-
+# khởi tạo trạng thái ban đầu của đội bóng
 def _empty_state() -> dict[str, Any]:
     return {"history": [], "elo": INITIAL_ELO, "last_date": None}
 
-
+# tính mean 5 trận gần nhất
 def _history_mean(history: list[dict[str, float]], key: str, prior: float) -> float:
     values = [float(item[key]) for item in history[-5:]]
     return (sum(values) + PRIOR_STRENGTH * prior) / (len(values) + PRIOR_STRENGTH)
 
-
+# tính số ngày nghỉ của độ bóng
 def _rest_days(state: dict[str, Any], current_date: pd.Timestamp) -> float:
     previous = state["last_date"]
     if previous is None:
@@ -59,6 +62,7 @@ def _rest_days(state: dict[str, Any], current_date: pd.Timestamp) -> float:
     return float(min(max(days, 0), 30))
 
 
+# tính 15 feature cho 1 trận đấu
 def _fixture_features(home: str, away: str, current_date: pd.Timestamp, states: dict[str, dict[str, Any]]) -> dict[str, float]:
     h = states.setdefault(home, _empty_state())
     a = states.setdefault(away, _empty_state())
@@ -92,17 +96,15 @@ def _fixture_features(home: str, away: str, current_date: pd.Timestamp, states: 
 
 
 def _iter_match_batches(df: pd.DataFrame) -> Iterator[pd.DataFrame]:
-    """Yield one batch per calendar date to prevent same-day result leakage.
-
-    Kickoff times are not proof that an earlier fixture had finished before a
-    later fixture began. Therefore this project deliberately uses the stricter
-    rule: every match on a date is featurized before any result from that date
-    updates team history.
+    """tạo ra yield một lô batch cho mỗi ngày trên lịch thi đấu để tránh data lackage trong cùng một ngày
+       không quan tâm kickoff times trong ngày 
+       tất cả các trận đấu trong cùng một ngày dều được trích xuất featurized trước khi bất kỳ kết quả
+       của ngày đó dùng để cập nhật 
     """
     for _, day in df.groupby("Date", sort=True):
         yield day.sort_values(["Kickoff", "HomeTeam", "AwayTeam"], kind="mergesort")
 
-
+# cập nhật trạng thái các đội sau khi có kết quả trận đấu
 def _advance_states(batch: pd.DataFrame, states: dict[str, dict[str, Any]]) -> None:
     deltas: dict[str, float] = defaultdict(float)
     for row in batch.itertuples(index=False):
@@ -128,7 +130,7 @@ def _advance_states(batch: pd.DataFrame, states: dict[str, dict[str, Any]]) -> N
     for team, delta in deltas.items():
         states[team]["elo"] += delta
 
-
+# đọc dữ liệu từ csv
 def load_matches(path: Path = INPUT_PATH) -> pd.DataFrame:
     if not path.exists():
         raise FileNotFoundError(f"Chưa có dữ liệu chuẩn: {path}. Hãy chạy bước prepare_data trước.")
@@ -139,7 +141,7 @@ def load_matches(path: Path = INPUT_PATH) -> pd.DataFrame:
     df = df.sort_values(["Date", "Kickoff", "HomeTeam", "AwayTeam"], kind="mergesort").reset_index(drop=True)
     return df
 
-
+# tạo features cho tất cả các trận đấu để huấn luyện 
 def build_features_dataframe(matches: pd.DataFrame) -> pd.DataFrame:
     df = matches.copy().reset_index(drop=True)
     df["Date"] = pd.to_datetime(df["Date"], errors="coerce").dt.normalize()
@@ -164,14 +166,14 @@ def build_features_dataframe(matches: pd.DataFrame) -> pd.DataFrame:
         raise ValueError("Feature engineering tạo ra giá trị thiếu.")
     return result
 
-
+# tạo features 1 trận cụ thể để dự đoán 
 def build_fixture_features(
     matches: pd.DataFrame,
     home_team: str,
     away_team: str,
     as_of_date: str | date | pd.Timestamp,
 ) -> pd.DataFrame:
-    """Build one prediction row using only matches strictly before as_of_date."""
+    """Xây dựng một hàng dự báo chỉ sử dụng các trận đấu diễn ra hoàn toàn trước"""
     if home_team == away_team:
         raise ValueError("Đội nhà và đội khách phải khác nhau.")
     target_date = pd.Timestamp(as_of_date).normalize()
@@ -185,7 +187,7 @@ def build_fixture_features(
     row = _fixture_features(home_team, away_team, target_date, states)
     return pd.DataFrame([row], columns=FEATURE_COLUMNS)
 
-
+# main 
 def build_features() -> pd.DataFrame:
     matches = load_matches()
     result = build_features_dataframe(matches)

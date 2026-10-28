@@ -2,10 +2,10 @@
   "source": "Football-Data.co.uk - local season CSV files",
   "raw_directory": "Data/raw/Kết quả các năm",
   "output_file": "Data/processed/premier_league_all_seasons.csv",
-  "total_valid_matches": 9950,
+  "total_valid_matches": 9960,
   "unique_teams": 46,
   "first_date": "2000-08-19",
-  "last_date": "2026-10-19",
+  "last_date": "2026-10-25",
   "duplicate_matches_removed": 0,
   "total_ftr_mismatches": 0,
   "season_match_counts": {
@@ -35,109 +35,9 @@
     "2023-2024": 380,
     "2024-2025": 380,
     "2025-2026": 380,
-    "2026-2027": 70
+    "2026-2027": 80
   },
   "files": [
-    {
-      "file": "2017-2018.csv",
-      "rows_seen": 380,
-      "rows_kept": 380,
-      "rows_skipped_missing_fields": 0,
-      "rows_skipped_invalid_date": 0,
-      "rows_skipped_invalid_score": 0,
-      "rows_with_extra_fields": 0,
-      "ftr_mismatches": 0
-    },
-    {
-      "file": "2018-2019.csv",
-      "rows_seen": 380,
-      "rows_kept": 380,
-      "rows_skipped_missing_fields": 0,
-      "rows_skipped_invalid_date": 0,
-      "rows_skipped_invalid_score": 0,
-      "rows_with_extra_fields": 0,
-      "ftr_mismatches": 0
-    },
-    {
-      "file": "2019-2020.csv",
-      "rows_seen": 380,
-      "rows_kept": 380,
-      "rows_skipped_missing_fields": 0,
-      "rows_skipped_invalid_date": 0,
-      "rows_skipped_invalid_score": 0,
-      "rows_with_extra_fields": 0,
-      "ftr_mismatches": 0
-    },
-    {
-      "file": "2020-2021.csv",
-      "rows_seen": 380,
-      "rows_kept": 380,
-      "rows_skipped_missing_fields": 0,
-      "rows_skipped_invalid_date": 0,
-      "rows_skipped_invalid_score": 0,
-      "rows_with_extra_fields": 0,
-      "ftr_mismatches": 0
-    },
-    {
-      "file": "2021-2022.csv",
-      "rows_seen": 380,
-      "rows_kept": 380,
-      "rows_skipped_missing_fields": 0,
-      "rows_skipped_invalid_date": 0,
-      "rows_skipped_invalid_score": 0,
-      "rows_with_extra_fields": 0,
-      "ftr_mismatches": 0
-    },
-    {
-      "file": "2022-2023.csv",
-      "rows_seen": 380,
-      "rows_kept": 380,
-      "rows_skipped_missing_fields": 0,
-      "rows_skipped_invalid_date": 0,
-      "rows_skipped_invalid_score": 0,
-      "rows_with_extra_fields": 0,
-      "ftr_mismatches": 0
-    },
-    {
-      "file": "2023-2024.csv",
-      "rows_seen": 380,
-      "rows_kept": 380,
-      "rows_skipped_missing_fields": 0,
-      "rows_skipped_invalid_date": 0,
-      "rows_skipped_invalid_score": 0,
-      "rows_with_extra_fields": 0,
-      "ftr_mismatches": 0
-    },
-    {
-      "file": "2024-2025.csv",
-      "rows_seen": 380,
-      "rows_kept": 380,
-      "rows_skipped_missing_fields": 0,
-      "rows_skipped_invalid_date": 0,
-      "rows_skipped_invalid_score": 0,
-      "rows_with_extra_fields": 0,
-      "ftr_mismatches": 0
-    },
-    {
-      "file": "2025-2026.csv",
-      "rows_seen": 380,
-      "rows_kept": 380,
-      "rows_skipped_missing_fields": 0,
-      "rows_skipped_invalid_date": 0,
-      "rows_skipped_invalid_score": 0,
-      "rows_with_extra_fields": 0,
-      "ftr_mismatches": 0
-    },
-    {
-      "file": "2026-2027.csv",
-      "rows_seen": 70,
-      "rows_kept": 70,
-      "rows_skipped_missing_fields": 0,
-      "rows_skipped_invalid_date": 0,
-      "rows_skipped_invalid_score": 0,
-      "rows_with_extra_fields": 0,
-      "ftr_mismatches": 0
-    },
     {
       "file": "EPL0001.csv",
       "rows_seen": 380,
@@ -302,6 +202,106 @@
       "file": "EPL1617.csv",
       "rows_seen": 380,
       "rows_kept": 380,
+      "rows_skipped_missing_fields": 0,
+      "rows_skipped_invalid_date": 0,
+      "rows_skipped_invalid_score": 0,
+      "rows_with_extra_fields": 0,
+      "ftr_mismatches": 0
+    },
+    {
+      "file": "EPL1718.csv",
+      "rows_seen": 380,
+      "rows_kept": 380,
+      "rows_skipped_missing_fields": 0,
+      "rows_skipped_invalid_date": 0,
+      "rows_skipped_invalid_score": 0,
+      "rows_with_extra_fields": 0,
+      "ftr_mismatches": 0
+    },
+    {
+      "file": "EPL1819.csv",
+      "rows_seen": 380,
+      "rows_kept": 380,
+      "rows_skipped_missing_fields": 0,
+      "rows_skipped_invalid_date": 0,
+      "rows_skipped_invalid_score": 0,
+      "rows_with_extra_fields": 0,
+      "ftr_mismatches": 0
+    },
+    {
+      "file": "EPL1920.csv",
+      "rows_seen": 380,
+      "rows_kept": 380,
+      "rows_skipped_missing_fields": 0,
+      "rows_skipped_invalid_date": 0,
+      "rows_skipped_invalid_score": 0,
+      "rows_with_extra_fields": 0,
+      "ftr_mismatches": 0
+    },
+    {
+      "file": "EPL2021.csv",
+      "rows_seen": 380,
+      "rows_kept": 380,
+      "rows_skipped_missing_fields": 0,
+      "rows_skipped_invalid_date": 0,
+      "rows_skipped_invalid_score": 0,
+      "rows_with_extra_fields": 0,
+      "ftr_mismatches": 0
+    },
+    {
+      "file": "EPL2122.csv",
+      "rows_seen": 380,
+      "rows_kept": 380,
+      "rows_skipped_missing_fields": 0,
+      "rows_skipped_invalid_date": 0,
+      "rows_skipped_invalid_score": 0,
+      "rows_with_extra_fields": 0,
+      "ftr_mismatches": 0
+    },
+    {
+      "file": "EPL2223.csv",
+      "rows_seen": 380,
+      "rows_kept": 380,
+      "rows_skipped_missing_fields": 0,
+      "rows_skipped_invalid_date": 0,
+      "rows_skipped_invalid_score": 0,
+      "rows_with_extra_fields": 0,
+      "ftr_mismatches": 0
+    },
+    {
+      "file": "EPL2324.csv",
+      "rows_seen": 380,
+      "rows_kept": 380,
+      "rows_skipped_missing_fields": 0,
+      "rows_skipped_invalid_date": 0,
+      "rows_skipped_invalid_score": 0,
+      "rows_with_extra_fields": 0,
+      "ftr_mismatches": 0
+    },
+    {
+      "file": "EPL2425.csv",
+      "rows_seen": 380,
+      "rows_kept": 380,
+      "rows_skipped_missing_fields": 0,
+      "rows_skipped_invalid_date": 0,
+      "rows_skipped_invalid_score": 0,
+      "rows_with_extra_fields": 0,
+      "ftr_mismatches": 0
+    },
+    {
+      "file": "EPL2526.csv",
+      "rows_seen": 380,
+      "rows_kept": 380,
+      "rows_skipped_missing_fields": 0,
+      "rows_skipped_invalid_date": 0,
+      "rows_skipped_invalid_score": 0,
+      "rows_with_extra_fields": 0,
+      "ftr_mismatches": 0
+    },
+    {
+      "file": "EPL2627.csv",
+      "rows_seen": 80,
+      "rows_kept": 80,
       "rows_skipped_missing_fields": 0,
       "rows_skipped_invalid_date": 0,
       "rows_skipped_invalid_score": 0,

@@ -1,7 +1,8 @@
-"""Train, select and evaluate 1X2 classifiers plus Poisson goal models.
+"""Huấn luyện, lựa chọn và đánh giá các bộ phân loại 1X2 cùng các mô hình
+dự báo số bàn thắng theo phân phối Poisson.
 
-Validation is used for model/ensemble selection. The final test interval is
-kept out of fitting, tuning and model selection.
+Validation được dùng để chọn mô hình; giai đoạn Test cuối cùng không được 
+tham gia fit, tuning hoặc chọn mô hình
 """
 from __future__ import annotations
 
@@ -147,7 +148,7 @@ def multiclass_brier(y_true: np.ndarray, probabilities: np.ndarray) -> float:
     one_hot = np.column_stack([(y_true == label).astype(float) for label in CLASS_ORDER])
     return float(np.mean(np.sum((probabilities - one_hot) ** 2, axis=1)))
 
-""" sử dụng Accuracy, Macro F1, Balanced Accuracy, Log loss, và Brier score để đánh """
+""" sử dụng Accuracy, Macro F1, Balanced Accuracy, Log loss, và Brier score để đánh giá """
 def classification_metrics(y_true: np.ndarray, probabilities: np.ndarray) -> dict[str, float]:
     predictions = probabilities_to_labels(probabilities)
     return {
