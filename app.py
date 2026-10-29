@@ -147,7 +147,6 @@ with evaluation_tab:
                 st.warning(
                     f"Lưu ý về lớp hòa: Draw recall của mô hình được chọn là {draw_recall:.1%}; "
                     f"Logistic Regression cân bằng lớp đạt {balanced_draw_recall:.1%}. "
-                    "Đây là hạn chế thực nghiệm cần được nêu rõ, không nên tuyên bố hệ thống nhận diện tốt cả ba lớp."
                 )
                 rows = []
                 for label in ["Away win (A)", "Draw (D)", "Home win (H)"]:

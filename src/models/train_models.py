@@ -88,7 +88,7 @@ def temporal_split(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.Dat
         "test_start": str(test["Date"].min().date()),
         "test_end": str(test["Date"].max().date()),
     }
-    return train, validation, test, dates
+    return train, validation, test, dates   
 
 """sử dụng Logistic Regression, Decision Tree, Random Forest, và HistGradientBoostingClassifier"""
 def create_classifiers() -> dict[str, Any]:
@@ -159,7 +159,7 @@ def classification_metrics(y_true: np.ndarray, probabilities: np.ndarray) -> dic
         "brier_score": multiclass_brier(y_true, probabilities),
     }
 
-
+"""Possion dự đoán bàn thắng """
 def fit_goal_models(train: pd.DataFrame) -> tuple[Pipeline, Pipeline]:
     home_model = Pipeline(
         [("scaler", StandardScaler()), ("model", PoissonRegressor(alpha=0.25, max_iter=2000))]
@@ -203,19 +203,19 @@ def poisson_outcome_probabilities(home_lam: np.ndarray, away_lam: np.ndarray, ma
     top_scores = np.column_stack([top_home, top_away])
     return probabilities, top_scores, matrices
 
-
+"""tính baseline"""
 def _class_prior_probabilities(y_train: pd.Series, n: int) -> np.ndarray:
     priors = y_train.value_counts(normalize=True).reindex(CLASS_ORDER, fill_value=0.0).to_numpy(dtype=float)
     priors = priors / priors.sum()
     return np.tile(priors, (n, 1))
 
-
+"""tính metrics và lưu vào danh sách"""
 def _evaluate_and_append(rows: list[dict[str, Any]], split: str, model_name: str, y: np.ndarray, probs: np.ndarray) -> dict[str, float]:
     metrics = classification_metrics(y, probs)
     rows.append({"split": split, "model": model_name, "n_samples": int(len(y)), **metrics})
     return metrics
 
-
+"""chọn mô ình cơ sở"""
 def _select_base_strategy(val_probabilities: dict[str, np.ndarray], y_val: np.ndarray) -> tuple[str, np.ndarray, float]:
     individual_names = list(val_probabilities)
     individual_losses = {
